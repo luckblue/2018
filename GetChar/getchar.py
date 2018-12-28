@@ -20,9 +20,7 @@ if __name__=='__main__':
     users = itchat.get_friends()
     for i in users:
         print(i['NickName'])
-
-
-
+    print(len(users))
 
 
     ## #发消息到个人
