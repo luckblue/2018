@@ -14,5 +14,5 @@ import sys
 
 
 str = open("foo.txt",  "w+")
-str.write('123')
+str.write('1233')
 # print(str.re)
