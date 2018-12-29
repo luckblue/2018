@@ -7,7 +7,7 @@ client_id = '9a8e4eadb6ae221c09' #有赞云颁发给开发者的应用ID
 client_secret = '1b764868f05ffdf4d7bf393bb5a631f9' #有赞云颁发给开发者的应用secret
 grant_type = 'silent'  #授与方式（固定为 “silent”）
 kdt_id = '42312280'  #授权给该应用的店铺id，控制台里可查看
-#time ='111'
+
 
 APPID = 'wx5fd097be09b290b8' #公众号APPID
 AppSecret = '9e9d45176e225bab201e8aac93fa821f'  #公众号AppSecret
@@ -15,11 +15,13 @@ Weixin_Url='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential
 
     #获取有赞access_token
 def get_youzan_access_token():
-    youzan_data = {"client_id":client_id,"client_secret":client_secret,"grant_type":grant_type,"kdt_id":kdt_id}
-    html_json=json.loads(requests.post(url=Youzan_url,data=youzan_data).text)
-    time = html_json['expires_in']
-    print(time)
-    return html_json['access_token']
+    if 1==1:
+        youzan_data = {"client_id":client_id,"client_secret":client_secret,"grant_type":grant_type,"kdt_id":kdt_id}
+        html_json=json.loads(requests.post(url=Youzan_url,data=youzan_data).text)
+        time = html_json['expires_in']
+        return html_json['access_token']
+    else:
+        return '获取的access_token'
 
 #有赞通过手机号获取用户open_id
 def get_youzan_OpenID(mobile):
@@ -53,5 +55,4 @@ def send_weixin_mes(mobile):
 if __name__=='__main__':
     # send_weixin_mes("13410376830")
     get_youzan_access_token()
-    #print(time)
 
