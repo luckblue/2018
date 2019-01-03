@@ -26,33 +26,30 @@ def get_youzan_access_token():
 #有赞通过手机号获取用户open_id
 def get_youzan_OpenID(mobile):
     url = "https://open.youzan.com/api/oauthentry/youzan.user.weixin.openid/3.0.0/get"
-    access_token = "72530888b2263c01ad73309b60bd9d9d"
+    access_token = get_youzan_access_token()
     data = json.dumps({"country_code":"+86","mobile":mobile})
-    #open_id = requests.get(url=url+'?access_token='+access_token,data=data)
-    # open_id = requests.get("https://open.youzan.com/api/oauthentry/youzan.user.weixin.openid/3.0.0/get"+ '?access_token=' + access_token+"&country_code=+86&mobile=13410376830")
-    url = "https://open.youzan.com/api/oauthentry/youzan.user.weixin.openid/3.0.0/get" + '?access_token=' + access_token + "&mobile=13410376830"
+    url = "https://open.youzan.com/api/oauthentry/youzan.user.weixin.openid/3.0.0/get" + '?access_token=' + access_token + "&mobile="+mobile
     open_id = json.loads(requests.get(url).text)["response"]["open_id"]
     return open_id
 
 
-    #公众号获取access_token
-def get_weix_access_token():
+    #公众号获取access_token,注意发送服务器IP地址必须在公众号的白名单中，否则无法获取。
+def get_weixin_access_token():
     res=requests.get(Weixin_Url+APPID+'&secret='+AppSecret)
-    access_token = json.loads(res.text)['access_token']
-    return  access_token
+    weixin_access_token = json.loads(res.text)['access_token']
+    return  weixin_access_token
 
 
 def send_weixin_mes(mobile):
     #案例https://blog.csdn.net/weixin_41004350/article/details/78705415
     mobanid = '3pafHfNdhgDaUDGDb4vIIjK8oVr4olQn06fsN9DzqFM'  #消息模板ID，从公众号后台获取
     OPENID = get_youzan_OpenID(mobile) #从有赞通过手机查询获取
-    access_token = get_weix_access_token()
+    access_token = get_weixin_access_token()
     data = {"touser":OPENID,"template_id":mobanid,"url":"http://www.shes.cn","topcolor":"#FF0000","data":{"first":{"value":"恭喜你购买成功！","color":"#173177"},"keyword1":{"value":"巧克力","color":"#173177"},"keyword2":{"value":"39.8元","color":"#173177"},"keyword3":{"value":"2014年9月22日","color":"#173177"},"keyword4":{"value":"39.8","color":"#173177"},"keyword5":{"value":"0","color":"#173177"},"remark":{"value":"欢迎再次购买！","color":"#173177"}}}
     response = requests.post(url='https://api.weixin.qq.com/cgi-bin/message/template/send?access_token='+access_token,data=json.dumps(data))
     print(response.text)
 
-
 if __name__=='__main__':
-    # send_weixin_mes("13410376830")
-    get_youzan_access_token()
+     send_weixin_mes("13410376830")
+     #get_weixin_access_token()
 
