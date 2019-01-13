@@ -10,10 +10,10 @@
 
 
 import pymssql
-server = '192.168.0.13'
-user = 'report'
-password = 'report2015'
-database = 'ShesBI'
+server = '127.0.0.1'
+user = 'sa'
+password = 'x24681012'
+database = 'BSERP_XZ'
 port = '1433'
 tds_version = '4.2'  # 指定tds版本，防止版本过高，不能执行
 
@@ -23,15 +23,21 @@ conn = pymssql.connect(
     user=user,
     password=password,
     database=database,
-    port=port,
-    charset='utf8',
-    tds_version=tds_version
+    port=port#,
+    #charset='utf8',
+    #tds_version=tds_version
 )
 
 cur=conn.cursor()
-cur.execute('SELECT  [代码],[名称],[地址],[经纬度] FROM [ShesBI].[dbo].[Map]')
-str=cur.fetchall()
-# print(cur.fetchall())
+cur.execute('SELECT  TOP 10 KHDM,KHMC from KEHU ')
+#str=cur.fetchall()
+
+row=cur.fetchone()
+while row:
+    print(row[0]+' '+row[1])
+    row=cur.fetchone()
+
+#print(cur.fetchall())
 cur.close()
 conn.close()
 print('123')
