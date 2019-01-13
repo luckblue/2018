@@ -29,13 +29,18 @@ conn = pymssql.connect(
 )
 
 cur=conn.cursor()
-cur.execute('SELECT  TOP 10 KHDM,KHMC from KEHU ')
+#cur.execute('SELECT  TOP 10 KHDM,KHMC from KEHU ')
+
+cur.execute('insert into [dbo].[BANZU](BZDM)values (111)')
+
+conn.commit()
+
 #str=cur.fetchall()
 
-row=cur.fetchone()
-while row:
-    print(row[0]+' '+row[1])
-    row=cur.fetchone()
+#row=cur.fetchone()
+#while row:
+#    print(row[0]+' '+row[1])
+#    row=cur.fetchone()
 
 #print(cur.fetchall())
 cur.close()
