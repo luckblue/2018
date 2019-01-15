@@ -1,6 +1,7 @@
 import pymssql
 import Order_E3_EZR
 import pymysql
+import time
 
 # 加载基础模块
 # 基本参数定义
@@ -39,7 +40,12 @@ def exec_ipos(sql,param):
 
 def main():
     print('根据时间执行计划任务')
-    Order_E3_EZR.ipos_ETL()
+    #Order_E3_EZR.ipos_ETL()
+    i=1
+    while ( 1==1 ):
+        print(i)
+        i=i+1
+        time.sleep(0.1)
 
 
 if __name__ == '__main__':
