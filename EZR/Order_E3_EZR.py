@@ -17,15 +17,14 @@ def ipor_mb():
     cur=main.exec_ipos("insert into [dbo].[BANZU]([BZDM])values('123')")
     cur.close()
 
-
+#https://www.jianshu.com/p/fba075a4cfe9
 def ipos_ETL():
-    print('处理')
     cur=ipos_des()
     row = cur.fetchone()
     while row:
-        print(row[0]+row[1])
         sql="INSERT into aaaaa_test(spdm,spmc)VALUES(%s,%s)"
         param=(row[0], row[1])
         main.exec_ipos(sql, param)
         row = cur.fetchone()
+    print('日志')
     cur.close()
