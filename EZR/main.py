@@ -12,40 +12,35 @@ import time
 # 获取Token方法
 # 定义数据库查询方法
 
+class IPOS:
+    db = pymysql.connect('192.168.0.9', 'ipos', 'ipos!@#', 'ipos')
 
-def Conn_Ipos():
-    db=pymysql.connect('192.168.0.9','ipos','ipos!@#','ipos')
-    if db:
-        return db
+    def __init__(self):
+        print('初始化连接')
 
-#执行数据库查询
-def select_ipos(sql):
-    db=Conn_Ipos()
-    cur=db.cursor()
-    cur.execute(sql)
-    db.close()
-    return cur
+    def select_ipos(self, sql):
+        cur =self.db.cursor()
+        cur.execute(sql)
+        cur.close()
+        return cur
 
-
-#执行数据库写入
-def exec_ipos(sql,param):
-    print('IPOS数据库写入')
-    db=Conn_Ipos()
-    cur = db.cursor()
-    cur.execute(sql,param)
-    db.commit()
-    db.close()
-    return cur
+    # 执行数据库写入
+    def exec_ipos(self, sql, param):
+        cur = self.db.cursor()
+        cur.execute(sql, param)
+        self.db.commit()
+        cur.close()
 
 
 def main():
     print('根据时间执行计划任务')
-    #Order_E3_EZR.ipos_ETL()
-    i=1
-    while ( 1==1 ):
-        print(i)
-        i=i+1
-        time.sleep(0.1)
+    Order_E3_EZR.ipos_ETL()
+    # i=1
+    # while ( 1<5 ):
+    #     print(i)
+    #     i=i+1
+    #     Order_E3_EZR.ipos_ETL()
+    #     time.sleep(0.1)
 
 
 if __name__ == '__main__':
